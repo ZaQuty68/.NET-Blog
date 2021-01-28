@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - moja aplikacja platformy ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+    <hr style="width:100%;" />
+    <div style="top:0; position:fixed; width:100%; z-index: 999;">
+        @if ((bool)Session["Admin"])
+        {
+            @Html.Partial("_NavBarAdmin")
+        }
+        else
+        {
+            @Html.Partial("_NavBarLogged")
+        }
+    </div>
+    <br />
+    <div class="container body-content">
+        <div class="row justify-content-md-center">
+            @if (Session["Username"] != null)
+            {
+                <h2>Logged as:   @Session["Username"].ToString()</h2>
+            }
+        </div>
+        @RenderBody()
+        <hr />
+        <div style="bottom:0;position: fixed; width:100%;">
+            <hr style="width:100%;" />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Mój blog ASP.NET</p>
+            </footer>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

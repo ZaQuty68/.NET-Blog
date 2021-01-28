@@ -1,0 +1,68 @@
+﻿<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="/Home/Index">Home</a>
+    
+
+    <div class="navbar-expand" id="navbarColor01" style="">
+        <ul class="navbar-nav mr-auto">
+            @if (ViewContext.RouteData.Values["Controller"].ToString().Equals("Posts") && ViewContext.RouteData.Values["Action"].ToString().Equals("Index"))
+            {
+                <li class="nav-item active">
+                    <a class="nav-link" href="/Posts/Index">
+                        Posts
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Posts/Create">
+                        Add post
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Home/Logout">
+                        Logout
+                    </a>
+                </li>
+            }
+            else
+            {
+                if (ViewContext.RouteData.Values["Action"].ToString().Equals("Create"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Posts/Index">
+                            Posts
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/Posts/Create">
+                            Add post
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/Logout">
+                            Logout
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Posts/Index">
+                            Posts
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Posts/Create">
+                            Add post
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/Logout">
+                            Logout
+                        </a>
+                    </li>
+                }
+
+            }
+
+        </ul>
+    </div>
+</nav>

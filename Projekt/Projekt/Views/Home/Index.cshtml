@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MyLayoutLogged.cshtml";
+}
+<br/>
+<div class="row justify-content-md-center">
+    <div class="col-md-4">
+        <div class="card">
+            @if ((bool)Session["Admin"])
+            {
+                <div class="card-header">
+                    Wellcome Admin!
+                </div>
+            }
+            else 
+            {
+                <div class="card-header">
+                    Wellcome
+                </div>
+            }
+            <div class="card-body">
+                @if (Session["Username"] != null)
+                {
+                    <p>Username:   @Session["Username"].ToString()</p>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>

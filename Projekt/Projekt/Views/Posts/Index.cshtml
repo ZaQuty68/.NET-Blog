@@ -1,0 +1,74 @@
+﻿@model List<Projekt.ViewModels.PostViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MyLayoutLogged.cshtml";
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.InsertAfter,
+        UpdateTargetId = "CommentInfo"
+    };
+}
+
+<h2>Posts</h2>
+
+<div class="row justify-content-md-center">
+
+@foreach (var item in Model) {
+    <div class="col-8">
+        <br />
+        @if ((bool)Session["Admin"])
+        {
+            <div>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Post.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Post.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Post.Id })
+            </div>
+        }
+        else
+        {
+            if ((int)Session["idUser"] == item.User.Id)
+            {
+                <div>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Post.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Post.Id })
+                </div>
+            }
+        }
+        <div class="card bg-info">
+            <div class="card-header">
+                <h5>
+                    @item.User.Username
+                </h5>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">
+                    @item.Post.Title
+                </h5>
+            </div>
+            <div class="card-body">
+                @item.Post.Content
+            </div>
+            <div class="card-footer">
+                @using (Ajax.BeginForm("AddComment", "Posts", ajaxOptions))
+                {
+                    @Html.AntiForgeryToken();
+                    @Html.EditorFor(x => item.Comment.Content);
+                    @Html.HiddenFor(x => item);
+                    <input type="submit" id="SubmitButton" value="Comment"/>
+                }
+            </div>
+            <div id="CommentInfo">
+                @foreach (var comment in item.Comments)
+                {
+                    @Html.Partial("_PartialComment", comment)
+                }
+            </div>
+        </div>
+
+
+    </div>
+}
+
+</div>
